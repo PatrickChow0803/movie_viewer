@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:movie_viewer/models/movie.dart';
 
+// these are the different states that the movie bloc has. Ex: loading and loaded.
+
 abstract class MovieState extends Equatable {
   const MovieState();
 

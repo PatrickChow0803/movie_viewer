@@ -5,6 +5,8 @@ import 'package:movie_viewer/models/movie.dart';
 import 'movie_bloc_event.dart';
 import 'movie_bloc_state.dart';
 
+// this is what you want the bloc to do
+
 class MovieBloc extends Bloc<MovieEvent, MovieState> {
   MovieBloc() : super(MovieLoading());
 
@@ -19,6 +21,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
       int movieId, String query) async* {
     final service = ApiService();
     // initial state
+    // calls the .getNowPlayingMovie method on start up
     yield MovieLoading();
     try {
       late List<Movie> movieList;
