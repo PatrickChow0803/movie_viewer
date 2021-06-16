@@ -9,6 +9,7 @@ import 'package:movie_viewer/bloc/movie_bloc/movie_bloc.dart';
 import 'package:movie_viewer/bloc/movie_bloc/movie_bloc_event.dart';
 import 'package:movie_viewer/bloc/movie_bloc/movie_bloc_state.dart';
 import 'package:movie_viewer/models/movie.dart';
+import 'package:movie_viewer/presentation/category_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -151,6 +152,15 @@ class HomeScreen extends StatelessWidget {
                               ],
                             );
                           },
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 12),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              BuildWidgetCategory(),
+                            ],
+                          ),
                         ),
                       ],
                     );
