@@ -86,6 +86,7 @@ class HomeScreen extends StatelessWidget {
                           itemBuilder: (context, index, _) {
                             Movie movie = movies[index];
                             return Stack(
+                              alignment: Alignment.bottomLeft,
                               children: <Widget>[
                                 ClipRRect(
                                   child: CachedNetworkImage(
@@ -112,11 +113,45 @@ class HomeScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(10),
                                   ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    bottom: 15,
+                                    left: 15,
+                                  ),
+                                  child: Text(
+                                    movie.title!.toUpperCase(),
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                      // adds black outline to the text
+                                      shadows: [
+                                        Shadow(
+                                            // bottomLeft
+                                            offset: Offset(-1.5, -1.5),
+                                            color: Colors.black),
+                                        Shadow(
+                                            // bottomRight
+                                            offset: Offset(1.5, -1.5),
+                                            color: Colors.black),
+                                        Shadow(
+                                            // topRight
+                                            offset: Offset(1.5, 1.5),
+                                            color: Colors.black),
+                                        Shadow(
+                                            // topLeft
+                                            offset: Offset(-1.5, 1.5),
+                                            color: Colors.black),
+                                      ],
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 )
                               ],
                             );
                           },
-                        )
+                        ),
                       ],
                     );
                   } else {
