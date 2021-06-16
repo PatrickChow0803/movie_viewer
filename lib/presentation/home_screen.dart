@@ -1,11 +1,14 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_viewer/bloc/movie_bloc/movie_bloc.dart';
 import 'package:movie_viewer/bloc/movie_bloc/movie_bloc_event.dart';
 import 'package:movie_viewer/bloc/movie_bloc/movie_bloc_state.dart';
+import 'package:movie_viewer/models/movie.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -64,9 +67,62 @@ class HomeScreen extends StatelessWidget {
                           : CupertinoActivityIndicator(),
                     );
                   } else if (state is MovieLoaded) {
-                    return Container();
+                    List<Movie> movies = state.movieList;
+                    print(movies.length);
+                    return Column(
+                      children: [
+                        CarouselSlider.builder(
+                          options: CarouselOptions(
+                            enableInfiniteScroll: true,
+                            autoPlay: true,
+                            autoPlayInterval: Duration(seconds: 3),
+                            autoPlayAnimationDuration:
+                                Duration(milliseconds: 500),
+                            pauseAutoPlayOnTouch: true,
+                            viewportFraction: 0.8,
+                            enlargeCenterPage: true,
+                          ),
+                          itemCount: movies.length,
+                          itemBuilder: (context, index, _) {
+                            Movie movie = movies[index];
+                            return Stack(
+                              children: <Widget>[
+                                ClipRRect(
+                                  child: CachedNetworkImage(
+                                    imageUrl:
+                                        'https://image.tmdb.org/t/p/original${movie.backdropPath}',
+                                    height:
+                                        MediaQuery.of(context).size.height / 3,
+                                    width: MediaQuery.of(context).size.width,
+                                    fit: BoxFit.cover,
+                                    placeholder: (context, url) =>
+                                        Platform.isAndroid
+                                            ? CircularProgressIndicator()
+                                            : CupertinoActivityIndicator(),
+                                    errorWidget: (context, url, error) =>
+                                        Container(
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: AssetImage(
+                                              'assets/images/img_not_found.jpg'),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                )
+                              ],
+                            );
+                          },
+                        )
+                      ],
+                    );
                   } else {
-                    return Container();
+                    return Container(
+                      child: Text('This broken'),
+                    );
                   }
                 })
               ],
