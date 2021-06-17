@@ -143,7 +143,7 @@ class _BuildWidgetCategoryState extends State<BuildWidgetCategory> {
                                 'https://image.tmdb.org/t/p/original/${movie.backdropPath}',
                             imageBuilder: (context, imageProvider) {
                               return Container(
-                                width: 190,
+                                width: 180,
                                 height: 250,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.all(
@@ -155,7 +155,7 @@ class _BuildWidgetCategoryState extends State<BuildWidgetCategory> {
                               );
                             },
                             placeholder: (context, url) => Container(
-                              width: 190,
+                              width: 180,
                               height: 250,
                               child: Center(
                                 child: Platform.isAndroid
@@ -164,7 +164,7 @@ class _BuildWidgetCategoryState extends State<BuildWidgetCategory> {
                               ),
                             ),
                             errorWidget: (context, url, error) => Container(
-                              width: 190,
+                              width: 180,
                               height: 250,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
@@ -175,6 +175,54 @@ class _BuildWidgetCategoryState extends State<BuildWidgetCategory> {
                             ),
                           ),
                         ),
+                        SizedBox(height: 10),
+                        Container(
+                          width: 180,
+                          child: Text(
+                            movie.title!.toUpperCase(),
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.black45,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        Container(
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.star,
+                                color: Colors.yellow,
+                                size: 14,
+                              ),
+                              Icon(
+                                Icons.star,
+                                color: Colors.yellow,
+                                size: 14,
+                              ),
+                              Icon(
+                                Icons.star,
+                                color: Colors.yellow,
+                                size: 14,
+                              ),
+                              Icon(
+                                Icons.star,
+                                color: Colors.yellow,
+                                size: 14,
+                              ),
+                              Icon(
+                                Icons.star,
+                                color: Colors.yellow,
+                                size: 14,
+                              ),
+                              Text(
+                                movie.voteAverage!,
+                                style: TextStyle(color: Colors.black45),
+                              ),
+                            ],
+                          ),
+                        )
                       ],
                     );
                   },

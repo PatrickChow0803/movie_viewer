@@ -18,18 +18,19 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
   }
 
   Stream<MovieState> _mapMovieEventStateToState(
-      int movieId, String query) async* {
+      int genreId, String query) async* {
     final service = ApiService();
     // initial state
     // calls the .getNowPlayingMovie method on start up
     yield MovieLoading();
     try {
       List<Movie> movieList;
-      if (movieId == 0) {
+      if (genreId == 0) {
         movieList = await service.getNowPlayingMovie();
       } else {
         // print('$movieId: this work???');
-        movieList = await service.getMovieByGenre(movieId: 28);
+        // assume the genreId is 28
+        movieList = await service.getMovieByGenre(genreId: 28);
       }
 
       yield MovieLoaded(movieList);

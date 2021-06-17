@@ -27,10 +27,10 @@ class ApiService {
 
   // Action Genre Id is 28
   // Assume Action is the default category
-  Future<List<Movie>> getMovieByGenre({int movieId = 28}) async {
+  Future<List<Movie>> getMovieByGenre({int genreId = 28}) async {
     try {
       final url =
-          '$baseUrl/discover/movie?with_genres=$movieId&api_key=$apiKey';
+          '$baseUrl/discover/movie?with_genres=$genreId&api_key=$apiKey';
       final response = await _dio.get(url);
       // 'results' is used to get into the 'results' part of the json
       var movies = response.data['results'] as List;
