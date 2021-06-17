@@ -6,6 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_viewer/bloc/genre_block/genre_bloc.dart';
 import 'package:movie_viewer/bloc/genre_block/genre_bloc_event.dart';
 import 'package:movie_viewer/bloc/genre_block/genre_bloc_state.dart';
+import 'package:movie_viewer/bloc/movie_bloc/movie_bloc.dart';
+import 'package:movie_viewer/bloc/movie_bloc/movie_bloc_event.dart';
+import 'package:movie_viewer/bloc/movie_bloc/movie_bloc_state.dart';
 import 'package:movie_viewer/models/genre.dart';
 
 class BuildWidgetCategory extends StatefulWidget {
@@ -32,6 +35,9 @@ class _BuildWidgetCategoryState extends State<BuildWidgetCategory> {
       providers: [
         BlocProvider<GenreBloc>(
           create: (_) => GenreBloc()..add(GenreEventStarted()),
+        ),
+        BlocProvider<MovieBloc>(
+          create: (_) => MovieBloc()..add(MovieEventStarted(selectedGenre, '')),
         ),
       ],
       child: _buildGenre(context),
@@ -75,12 +81,45 @@ class _BuildWidgetCategoryState extends State<BuildWidgetCategory> {
                                 ? Colors.black45
                                 : Colors.white,
                           ),
+                          child: Text(
+                            genre.name!.toUpperCase(),
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: (genre.id == selectedGenre)
+                                  ? Colors.white
+                                  : Colors.black45,
+                            ),
+                          ),
                         ),
                       ],
                     );
                   },
                 ),
               );
+            } else {
+              return Container();
+            }
+          },
+        ),
+        SizedBox(height: 10),
+        Container(
+          child: Text(
+            'Movies By Category:'.toUpperCase(),
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: Colors.black54,
+            ),
+          ),
+        ),
+        SizedBox(height: 10),
+        BlocBuilder<MovieBloc, MovieState>(
+          builder: (context, state) {
+            if (state is MovieLoading) {
+              return Center();
+            } else if (state is MovieLoaded) {
+              return Center();
             } else {
               return Container();
             }

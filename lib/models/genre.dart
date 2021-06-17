@@ -6,7 +6,7 @@ class Genre {
 
   Genre({this.id, this.name});
 
-  factory Genre.fromJson(Map<String, dynamic> json) {
+  factory Genre.fromJson(Map<String, dynamic>? json) {
     if (json == null) {
       return Genre();
     }

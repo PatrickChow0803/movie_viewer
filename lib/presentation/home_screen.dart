@@ -97,10 +97,17 @@ class HomeScreen extends StatelessWidget {
                                         MediaQuery.of(context).size.height / 3,
                                     width: MediaQuery.of(context).size.width,
                                     fit: BoxFit.cover,
-                                    placeholder: (context, url) =>
-                                        Platform.isAndroid
+                                    // The Center and the SizedBox widet are needed to
+                                    // adjust the size of the CircularProgressIndicator
+                                    placeholder: (context, url) => Center(
+                                      child: SizedBox(
+                                        height: 100,
+                                        width: 100,
+                                        child: Platform.isAndroid
                                             ? CircularProgressIndicator()
                                             : CupertinoActivityIndicator(),
+                                      ),
+                                    ),
                                     errorWidget: (context, url, error) =>
                                         Container(
                                       decoration: BoxDecoration(
@@ -158,6 +165,7 @@ class HomeScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
+                              SizedBox(height: 12),
                               BuildWidgetCategory(),
                             ],
                           ),
@@ -169,7 +177,7 @@ class HomeScreen extends StatelessWidget {
                       child: Text('This broken'),
                     );
                   }
-                })
+                }),
               ],
             ),
           ),
