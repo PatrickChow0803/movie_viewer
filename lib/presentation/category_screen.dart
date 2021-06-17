@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +11,7 @@ import 'package:movie_viewer/bloc/movie_bloc/movie_bloc.dart';
 import 'package:movie_viewer/bloc/movie_bloc/movie_bloc_event.dart';
 import 'package:movie_viewer/bloc/movie_bloc/movie_bloc_state.dart';
 import 'package:movie_viewer/models/genre.dart';
+import 'package:movie_viewer/models/movie.dart';
 
 class BuildWidgetCategory extends StatefulWidget {
   final int selectedGenre;
@@ -119,7 +121,65 @@ class _BuildWidgetCategoryState extends State<BuildWidgetCategory> {
             if (state is MovieLoading) {
               return Center();
             } else if (state is MovieLoaded) {
-              return Center();
+              List<Movie> movieList = state.movieList;
+              print('MoviesList Length: ${movieList.length}');
+              return Container(
+                height: 300,
+                child: ListView.separated(
+                  separatorBuilder: (context, index) => VerticalDivider(
+                    color: Colors.transparent,
+                    width: 15,
+                  ),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: movieList.length,
+                  itemBuilder: (context, index) {
+                    Movie movie = movieList[index];
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                          child: CachedNetworkImage(
+                            imageUrl:
+                                'https://image.tmdb.org/t/p/original/${movie.backdropPath}',
+                            imageBuilder: (context, imageProvider) {
+                              return Container(
+                                width: 190,
+                                height: 250,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(12),
+                                  ),
+                                  image: DecorationImage(
+                                      image: imageProvider, fit: BoxFit.cover),
+                                ),
+                              );
+                            },
+                            placeholder: (context, url) => Container(
+                              width: 190,
+                              height: 250,
+                              child: Center(
+                                child: Platform.isAndroid
+                                    ? CircularProgressIndicator()
+                                    : CupertinoActivityIndicator(),
+                              ),
+                            ),
+                            errorWidget: (context, url, error) => Container(
+                              width: 190,
+                              height: 250,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      'assets/images/img_not_found.jpg'),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              );
             } else {
               return Container();
             }
