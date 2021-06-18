@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_viewer/bloc/genre_block/genre_bloc_event.dart';
-import 'package:movie_viewer/bloc/genre_block/genre_bloc_state.dart';
+import 'package:movie_viewer/bloc/genre_bloc/genre_bloc_event.dart';
+import 'package:movie_viewer/bloc/genre_bloc/genre_bloc_state.dart';
 import 'package:movie_viewer/infrastructure/api_service.dart';
 import 'package:movie_viewer/models/genre.dart';
 
