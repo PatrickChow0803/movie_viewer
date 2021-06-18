@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:movie_viewer/models/genre.dart';
 import 'package:movie_viewer/models/movie.dart';
+import 'package:movie_viewer/models/movie_detail.dart';
 import 'package:movie_viewer/models/person.dart';
 
 class ApiService {
@@ -68,6 +69,21 @@ class ApiService {
       var persons = response.data['results'] as List;
       List<Person> personList = persons.map((p) => Person.fromJson(p)).toList();
       return personList;
+    } catch (error, stacktrace) {
+      throw Exception(
+          'Exception accoured: $error with stacktrace: $stacktrace');
+    }
+  }
+
+  // https://api.themoviedb.org/3/movie/100?api_key={api_key}
+  // gets the movie details where the movieId is 100
+  Future<MovieDetail> getMovieDetail(int movieId) async {
+    try {
+      final url = '$baseUrl/movie/$movieId?api_key=$apiKey';
+      final response = await _dio.get(url);
+      MovieDetail movieDetail = MovieDetail.fromJson(response.data);
+
+      return movieDetail;
     } catch (error, stacktrace) {
       throw Exception(
           'Exception accoured: $error with stacktrace: $stacktrace');
