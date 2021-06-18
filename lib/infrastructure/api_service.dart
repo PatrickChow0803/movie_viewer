@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:movie_viewer/models/genre.dart';
 import 'package:movie_viewer/models/movie.dart';
+import 'package:movie_viewer/models/person.dart';
 
 class ApiService {
   final Dio _dio = Dio();
@@ -52,6 +53,21 @@ class ApiService {
       var genres = response.data['genres'] as List;
       List<Genre> genreList = genres.map((g) => Genre.fromJson(g)).toList();
       return genreList;
+    } catch (error, stacktrace) {
+      throw Exception(
+          'Exception accoured: $error with stacktrace: $stacktrace');
+    }
+  }
+
+  // https://api.themoviedb.org/3/trending/person/week?api_key=<<api_key>>
+  // gets trending people by week
+  Future<List<Person>> getTrendingPerson() async {
+    try {
+      final url = '$baseUrl/trending/person/week?api_key=$apiKey';
+      final response = await _dio.get(url);
+      var persons = response.data['results'] as List;
+      List<Person> personList = persons.map((p) => Person.fromJson(p)).toList();
+      return personList;
     } catch (error, stacktrace) {
       throw Exception(
           'Exception accoured: $error with stacktrace: $stacktrace');
