@@ -96,6 +96,7 @@ class ApiService {
   // Get the first video available
   // key is the extension to the URL that you need to add to watch the specific video
   // for example: https://www.youtube.com/embed/{key} is how you'd get the video
+  // Example key: N1XmtdMZdL8
   Future<String> getYoutubeId(int id) async {
     try {
       final url = '$baseUrl/movie/$id/videos?api_key=$apiKey';

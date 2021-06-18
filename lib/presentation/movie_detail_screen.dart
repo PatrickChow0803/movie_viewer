@@ -101,7 +101,117 @@ class MovieDetailScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                )
+                ),
+                SizedBox(height: 160),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  child: Column(
+                    children: [
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Overview'.toUpperCase(),
+                              style:
+                                  Theme.of(context).textTheme.caption!.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                              overflow: TextOverflow.ellipsis,
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Container(
+                        height: 35,
+                        child: Text(
+                          movieDetail.overview!,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Release date'.toUpperCase(),
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .caption!
+                                    .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black),
+                              ),
+                              Text(
+                                movieDetail.releaseDate!,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle2!
+                                    .copyWith(
+                                        color: Colors.yellow[800],
+                                        fontSize: 12),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Run Time'.toUpperCase(),
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .caption!
+                                    .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black),
+                              ),
+                              Text(
+                                '${movieDetail.runtime!} Mins',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle2!
+                                    .copyWith(
+                                        color: Colors.yellow[800],
+                                        fontSize: 12),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Rating'.toUpperCase(),
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .caption!
+                                    .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black),
+                              ),
+                              Text(
+                                movieDetail.voteAverage.toString(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle2!
+                                    .copyWith(
+                                        color: Colors.yellow[800],
+                                        fontSize: 12),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
               ],
             )
           ],
