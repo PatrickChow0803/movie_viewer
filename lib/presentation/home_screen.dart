@@ -167,6 +167,14 @@ class HomeScreen extends StatelessWidget {
                             children: <Widget>[
                               SizedBox(height: 12),
                               BuildWidgetCategory(),
+                              Text(
+                                'Trending persons on this week'.toUpperCase(),
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black45),
+                              ),
+                              SizedBox(height: 12),
                             ],
                           ),
                         ),
