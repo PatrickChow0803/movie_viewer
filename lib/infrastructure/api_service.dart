@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:movie_viewer/models/genre.dart';
 import 'package:movie_viewer/models/movie.dart';
 import 'package:movie_viewer/models/movie_detail.dart';
+import 'package:movie_viewer/models/movie_image.dart';
 import 'package:movie_viewer/models/person.dart';
 
 class ApiService {
@@ -84,6 +85,7 @@ class ApiService {
       MovieDetail movieDetail = MovieDetail.fromJson(response.data);
 
       movieDetail.trailerId = await getYoutubeId(movieId);
+      movieDetail.movieImage = await getMovieImage(movieId);
 
       return movieDetail;
     } catch (error, stacktrace) {
@@ -103,6 +105,18 @@ class ApiService {
       final response = await _dio.get(url);
       var youtubeId = response.data['results'][0]['key'];
       return youtubeId;
+    } catch (error, stacktrace) {
+      throw Exception(
+          'Exception accoured: $error with stacktrace: $stacktrace');
+    }
+  }
+
+  // https://api.themoviedb.org/3/movie/200/images?api_key={api_key}}
+  Future<MovieImage> getMovieImage(int movieId) async {
+    try {
+      final url = '$baseUrl/movie/$movieId/images?api_key=$apiKey';
+      final response = await _dio.get(url);
+      return MovieImage.fromJson(response.data);
     } catch (error, stacktrace) {
       throw Exception(
           'Exception accoured: $error with stacktrace: $stacktrace');

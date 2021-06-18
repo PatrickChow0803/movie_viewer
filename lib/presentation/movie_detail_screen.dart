@@ -9,6 +9,7 @@ import 'package:movie_viewer/bloc/movie_detail_bloc/movie_detail_event.dart';
 import 'package:movie_viewer/bloc/movie_detail_bloc/movie_detail_state.dart';
 import 'package:movie_viewer/models/movie.dart';
 import 'package:movie_viewer/models/movie_detail.dart';
+import 'package:movie_viewer/models/screen_shot.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MovieDetailScreen extends StatelessWidget {
@@ -93,9 +94,29 @@ class MovieDetailScreen extends StatelessWidget {
                             movieDetail.title!.toUpperCase(),
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              // adds black outline to the text
+                              shadows: [
+                                Shadow(
+                                    // bottomLeft
+                                    offset: Offset(-1.5, -1.5),
+                                    color: Colors.black),
+                                Shadow(
+                                    // bottomRight
+                                    offset: Offset(1.5, -1.5),
+                                    color: Colors.black),
+                                Shadow(
+                                    // topRight
+                                    offset: Offset(1.5, 1.5),
+                                    color: Colors.black),
+                                Shadow(
+                                    // topLeft
+                                    offset: Offset(-1.5, 1.5),
+                                    color: Colors.black),
+                              ],
+                            ),
                           )
                         ],
                       ),
@@ -208,6 +229,49 @@ class MovieDetailScreen extends StatelessWidget {
                             height: 10.0,
                           )
                         ],
+                      ),
+                      SizedBox(height: 10),
+                      Text('Screenshots'.toUpperCase(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .caption!
+                              .copyWith(fontWeight: FontWeight.bold)),
+                      Container(
+                        height: 155,
+                        child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          separatorBuilder: (context, index) => VerticalDivider(
+                            color: Colors.transparent,
+                            width: 5,
+                          ),
+                          itemCount: movieDetail.movieImage.backdrops!.length,
+                          itemBuilder: (context, index) {
+                            Screenshot image =
+                                movieDetail.movieImage.backdrops![index];
+                            return Container(
+                              child: Card(
+                                elevation: 3,
+                                borderOnForeground: true,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: CachedNetworkImage(
+                                    placeholder: (context, url) => Center(
+                                      child: Platform.isAndroid
+                                          ? CircularProgressIndicator()
+                                          : CupertinoActivityIndicator(),
+                                    ),
+                                    imageUrl:
+                                        'https://image.tmdb.org/t/p/w500${image.imagePath}',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       )
                     ],
                   ),

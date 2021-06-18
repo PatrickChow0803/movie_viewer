@@ -1,3 +1,5 @@
+import 'package:movie_viewer/models/movie_image.dart';
+
 class MovieDetail {
   final String? id;
   final String? title;
@@ -11,7 +13,10 @@ class MovieDetail {
   final String? voteAverage;
   final String? voteCount;
 
+  // for getting the video
   late String trailerId;
+
+  late MovieImage movieImage;
 
   MovieDetail({
     this.id,
@@ -28,10 +33,6 @@ class MovieDetail {
   });
 
   factory MovieDetail.fromJson(Map<String, dynamic> json) {
-    if (json == null) {
-      return MovieDetail();
-    }
-
     return MovieDetail(
         id: json['id'].toString(),
         title: json['title'],
