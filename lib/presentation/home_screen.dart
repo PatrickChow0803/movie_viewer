@@ -14,6 +14,7 @@ import 'package:movie_viewer/bloc/person_bloc/person_state.dart';
 import 'package:movie_viewer/models/movie.dart';
 import 'package:movie_viewer/models/person.dart';
 import 'package:movie_viewer/presentation/category_screen.dart';
+import 'package:movie_viewer/presentation/movie_detail_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -93,78 +94,88 @@ class HomeScreen extends StatelessWidget {
                             itemCount: movies.length,
                             itemBuilder: (context, index, _) {
                               Movie movie = movies[index];
-                              return Stack(
-                                alignment: Alignment.bottomLeft,
-                                children: <Widget>[
-                                  ClipRRect(
-                                    child: CachedNetworkImage(
-                                      imageUrl:
-                                          'https://image.tmdb.org/t/p/original${movie.backdropPath}',
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              3,
-                                      width: MediaQuery.of(context).size.width,
-                                      fit: BoxFit.cover,
-                                      // The Center and the SizedBox widet are needed to
-                                      // adjust the size of the CircularProgressIndicator
-                                      placeholder: (context, url) => Center(
-                                        child: SizedBox(
-                                          height: 100,
-                                          width: 100,
-                                          child: Platform.isAndroid
-                                              ? CircularProgressIndicator()
-                                              : CupertinoActivityIndicator(),
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              MovieDetailScreen(movie: movie)));
+                                },
+                                child: Stack(
+                                  alignment: Alignment.bottomLeft,
+                                  children: <Widget>[
+                                    ClipRRect(
+                                      child: CachedNetworkImage(
+                                        imageUrl:
+                                            'https://image.tmdb.org/t/p/original${movie.backdropPath}',
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                3,
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        fit: BoxFit.cover,
+                                        // The Center and the SizedBox widet are needed to
+                                        // adjust the size of the CircularProgressIndicator
+                                        placeholder: (context, url) => Center(
+                                          child: SizedBox(
+                                            height: 100,
+                                            width: 100,
+                                            child: Platform.isAndroid
+                                                ? CircularProgressIndicator()
+                                                : CupertinoActivityIndicator(),
+                                          ),
                                         ),
-                                      ),
-                                      errorWidget: (context, url, error) =>
-                                          Container(
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image: AssetImage(
-                                                'assets/images/img_not_found.jpg'),
+                                        errorWidget: (context, url, error) =>
+                                            Container(
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: AssetImage(
+                                                  'assets/images/img_not_found.jpg'),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(10),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      bottom: 15,
-                                      left: 15,
-                                    ),
-                                    child: Text(
-                                      movie.title!.toUpperCase(),
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                        // adds black outline to the text
-                                        shadows: [
-                                          Shadow(
-                                              // bottomLeft
-                                              offset: Offset(-1.5, -1.5),
-                                              color: Colors.black),
-                                          Shadow(
-                                              // bottomRight
-                                              offset: Offset(1.5, -1.5),
-                                              color: Colors.black),
-                                          Shadow(
-                                              // topRight
-                                              offset: Offset(1.5, 1.5),
-                                              color: Colors.black),
-                                          Shadow(
-                                              // topLeft
-                                              offset: Offset(-1.5, 1.5),
-                                              color: Colors.black),
-                                        ],
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
                                       ),
-                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                  )
-                                ],
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                        bottom: 15,
+                                        left: 15,
+                                      ),
+                                      child: Text(
+                                        movie.title!.toUpperCase(),
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18,
+                                          // adds black outline to the text
+                                          shadows: [
+                                            Shadow(
+                                                // bottomLeft
+                                                offset: Offset(-1.5, -1.5),
+                                                color: Colors.black),
+                                            Shadow(
+                                                // bottomRight
+                                                offset: Offset(1.5, -1.5),
+                                                color: Colors.black),
+                                            Shadow(
+                                                // topRight
+                                                offset: Offset(1.5, 1.5),
+                                                color: Colors.black),
+                                            Shadow(
+                                                // topLeft
+                                                offset: Offset(-1.5, 1.5),
+                                                color: Colors.black),
+                                          ],
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    )
+                                  ],
+                                ),
                               );
                             },
                           ),
@@ -211,6 +222,7 @@ class HomeScreen extends StatelessWidget {
                                                   child: Column(
                                                     children: [
                                                       Container(
+                                                        // Adds shadows to the images
                                                         decoration:
                                                             BoxDecoration(
                                                           color: Colors.white,

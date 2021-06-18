@@ -9,7 +9,7 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
 
   @override
   Stream<MovieDetailState> mapEventToState(MovieDetailEvent event) async* {
-    if (event is MovieDetailEventStated) {
+    if (event is MovieDetailEventStarted) {
       yield* _mapMovieEventStartedToState(event.id);
     }
   }
