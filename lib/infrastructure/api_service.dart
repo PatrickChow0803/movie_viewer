@@ -83,7 +83,25 @@ class ApiService {
       final response = await _dio.get(url);
       MovieDetail movieDetail = MovieDetail.fromJson(response.data);
 
+      movieDetail.trailerId = await getYoutubeId(movieId);
+
       return movieDetail;
+    } catch (error, stacktrace) {
+      throw Exception(
+          'Exception accoured: $error with stacktrace: $stacktrace');
+    }
+  }
+
+  // https://api.themoviedb.org/3/movie/{movie_id}/videos?api_key=<<api_key>>
+  // Get the first video available
+  // key is the extension to the URL that you need to add to watch the specific video
+  // for example: https://www.youtube.com/embed/{key} is how you'd get the video
+  Future<String> getYoutubeId(int id) async {
+    try {
+      final url = '$baseUrl/movie/$id/videos?api_key=$apiKey';
+      final response = await _dio.get(url);
+      var youtubeId = response.data['results'][0]['key'];
+      return youtubeId;
     } catch (error, stacktrace) {
       throw Exception(
           'Exception accoured: $error with stacktrace: $stacktrace');

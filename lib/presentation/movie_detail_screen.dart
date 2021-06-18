@@ -9,6 +9,7 @@ import 'package:movie_viewer/bloc/movie_detail_bloc/movie_detail_event.dart';
 import 'package:movie_viewer/bloc/movie_detail_bloc/movie_detail_state.dart';
 import 'package:movie_viewer/models/movie.dart';
 import 'package:movie_viewer/models/movie_detail.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MovieDetailScreen extends StatelessWidget {
   final Movie movie;
@@ -64,9 +65,45 @@ class MovieDetailScreen extends StatelessWidget {
                 ),
               ),
               borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(50),
-                  bottomRight: Radius.circular(50)),
+                  bottomLeft: Radius.circular(25),
+                  bottomRight: Radius.circular(25)),
             ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.only(top: 120),
+                  child: GestureDetector(
+                    onTap: () async {
+                      final youtubeUrl =
+                          'https://www.youtube.com/embed/${movieDetail.trailerId}';
+                      if (await canLaunch(youtubeUrl)) {
+                        await launch(youtubeUrl);
+                      }
+                    },
+                    child: Center(
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.play_arrow_outlined,
+                            color: Colors.yellow,
+                            size: 65,
+                          ),
+                          Text(
+                            movieDetail.title!.toUpperCase(),
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            )
           ],
         );
       } else {
