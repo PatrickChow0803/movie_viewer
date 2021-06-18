@@ -73,24 +73,36 @@ class _BuildWidgetCategoryState extends State<BuildWidgetCategory> {
                     Genre genre = genres[index];
                     return Column(
                       children: [
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black54),
-                            borderRadius: BorderRadius.all(Radius.circular(25)),
-                            // makes it so that only the selectedGenre is colored in
-                            color: (genre.id == selectedGenre)
-                                ? Colors.black45
-                                : Colors.white,
-                          ),
-                          child: Text(
-                            genre.name!.toUpperCase(),
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              Genre genre = genres[index];
+                              selectedGenre = genre.id!;
+                              context
+                                  .read<MovieBloc>()
+                                  .add(MovieEventStarted(selectedGenre, ''));
+                            });
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black54),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(25)),
+                              // makes it so that only the selectedGenre is colored in
                               color: (genre.id == selectedGenre)
-                                  ? Colors.white
-                                  : Colors.black45,
+                                  ? Colors.black45
+                                  : Colors.white,
+                            ),
+                            child: Text(
+                              genre.name!.toUpperCase(),
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: (genre.id == selectedGenre)
+                                    ? Colors.white
+                                    : Colors.black45,
+                              ),
                             ),
                           ),
                         ),

@@ -30,7 +30,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
       } else {
         // print('$movieId: this work???');
         // assume the genreId is 28
-        movieList = await service.getMovieByGenre(genreId: 28);
+        movieList = await service.getMovieByGenre(genreId: genreId);
       }
 
       yield MovieLoaded(movieList);
