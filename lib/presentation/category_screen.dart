@@ -153,6 +153,7 @@ class _BuildWidgetCategoryState extends State<BuildWidgetCategory> {
                           child: CachedNetworkImage(
                             imageUrl:
                                 'https://image.tmdb.org/t/p/original/${movie.backdropPath}',
+                            fit: BoxFit.cover,
                             imageBuilder: (context, imageProvider) {
                               return Container(
                                 width: 180,
