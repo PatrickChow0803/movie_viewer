@@ -8,7 +8,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_viewer/bloc/movie_bloc/movie_bloc.dart';
 import 'package:movie_viewer/bloc/movie_bloc/movie_bloc_event.dart';
 import 'package:movie_viewer/bloc/movie_bloc/movie_bloc_state.dart';
+import 'package:movie_viewer/bloc/person_bloc/person_bloc.dart';
+import 'package:movie_viewer/bloc/person_bloc/person_event.dart';
+import 'package:movie_viewer/bloc/person_bloc/person_state.dart';
 import 'package:movie_viewer/models/movie.dart';
+import 'package:movie_viewer/models/person.dart';
 import 'package:movie_viewer/presentation/category_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -19,7 +23,9 @@ class HomeScreen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<MovieBloc>(
-            create: (_) => MovieBloc()..add(MovieEventStarted(0, '')))
+            create: (_) => MovieBloc()..add(MovieEventStarted(0, ''))),
+        BlocProvider<PersonBloc>(
+            create: (_) => PersonBloc()..add(PersonEventStated())),
       ],
       child: Scaffold(
         appBar: AppBar(
@@ -175,6 +181,51 @@ class HomeScreen extends StatelessWidget {
                                     color: Colors.black45),
                               ),
                               SizedBox(height: 12),
+                              Column(
+                                children: [
+                                  BlocBuilder<PersonBloc, PersonState>(
+                                      builder: (context, state) {
+                                    if (state is PersonLoading) {
+                                      return Center();
+                                    } else if (state is PersonLoaded) {
+                                      List<Person> personList =
+                                          state.personList;
+                                      // print('PersonList: ${personList.length}');
+                                      return Container(
+                                          height: 110,
+                                          child: ListView.separated(
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: personList.length,
+                                            separatorBuilder:
+                                                (context, index) =>
+                                                    VerticalDivider(
+                                              color: Colors.transparent,
+                                              width: 10,
+                                            ),
+                                            itemBuilder: (context, index) {
+                                              Person person = personList[index];
+                                              return Container(
+                                                child: Column(
+                                                  children: [
+                                                    CircleAvatar(
+                                                      radius: 40.0,
+                                                      backgroundImage:
+                                                          CachedNetworkImageProvider(
+                                                              'https://image.tmdb.org/t/p/w200${person.profilePath}'),
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                    )
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                          ));
+                                    } else {
+                                      return Container();
+                                    }
+                                  })
+                                ],
+                              )
                             ],
                           ),
                         ),
