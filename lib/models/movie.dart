@@ -28,7 +28,7 @@ class Movie {
       this.voteCount,
       this.voteAverage});
 
-  factory Movie.fromJson(Map<String, dynamic> json) {
+  factory Movie.fromJson(Map<String, dynamic>? json) {
     if (json == null) {
       return Movie();
     }

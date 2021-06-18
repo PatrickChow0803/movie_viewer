@@ -9,6 +9,7 @@ import 'package:movie_viewer/bloc/movie_bloc/movie_bloc.dart';
 import 'package:movie_viewer/bloc/movie_bloc/movie_bloc_event.dart';
 import 'package:movie_viewer/bloc/movie_bloc/movie_bloc_state.dart';
 import 'package:movie_viewer/models/movie.dart';
+import 'package:movie_viewer/presentation/category_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -96,10 +97,17 @@ class HomeScreen extends StatelessWidget {
                                         MediaQuery.of(context).size.height / 3,
                                     width: MediaQuery.of(context).size.width,
                                     fit: BoxFit.cover,
-                                    placeholder: (context, url) =>
-                                        Platform.isAndroid
+                                    // The Center and the SizedBox widet are needed to
+                                    // adjust the size of the CircularProgressIndicator
+                                    placeholder: (context, url) => Center(
+                                      child: SizedBox(
+                                        height: 100,
+                                        width: 100,
+                                        child: Platform.isAndroid
                                             ? CircularProgressIndicator()
                                             : CupertinoActivityIndicator(),
+                                      ),
+                                    ),
                                     errorWidget: (context, url, error) =>
                                         Container(
                                       decoration: BoxDecoration(
@@ -152,6 +160,16 @@ class HomeScreen extends StatelessWidget {
                             );
                           },
                         ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 12),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              SizedBox(height: 12),
+                              BuildWidgetCategory(),
+                            ],
+                          ),
+                        ),
                       ],
                     );
                   } else {
@@ -159,7 +177,7 @@ class HomeScreen extends StatelessWidget {
                       child: Text('This broken'),
                     );
                   }
-                })
+                }),
               ],
             ),
           ),

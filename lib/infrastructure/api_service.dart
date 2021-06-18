@@ -25,6 +25,24 @@ class ApiService {
     }
   }
 
+  // Action Genre Id is 28
+  // Assume Action is the default category
+  Future<List<Movie>> getMovieByGenre({int genreId = 28}) async {
+    try {
+      final url =
+          '$baseUrl/discover/movie?with_genres=$genreId&api_key=$apiKey';
+      final response = await _dio.get(url);
+      // 'results' is used to get into the 'results' part of the json
+      var movies = response.data['results'] as List;
+      // converts the List<dynamic> into a List<Movie>
+      List<Movie> movieList = movies.map((m) => Movie.fromJson(m)).toList();
+      return movieList;
+    } catch (error, stacktrace) {
+      throw Exception(
+          'Exception accoured: $error with stacktrace: $stacktrace');
+    }
+  }
+
   // https://api.themoviedb.org/3/genre/movie/list?api_key={api_key}&language=en-US
   Future<List<Genre>> getGenreList() async {
     try {
