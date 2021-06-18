@@ -1,5 +1,7 @@
 import 'package:movie_viewer/models/movie_image.dart';
 
+import 'cast_list.dart';
+
 class MovieDetail {
   final String? id;
   final String? title;
@@ -17,6 +19,8 @@ class MovieDetail {
   late String trailerId;
 
   late MovieImage movieImage;
+
+  late List<Cast> castList;
 
   MovieDetail({
     this.id,
