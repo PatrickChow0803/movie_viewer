@@ -123,7 +123,7 @@ class MovieDetailScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 160),
+                SizedBox(height: 140),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 12),
                   child: Column(
@@ -272,7 +272,13 @@ class MovieDetailScreen extends StatelessWidget {
                             );
                           },
                         ),
-                      )
+                      ),
+                      SizedBox(height: 10),
+                      Text('Casts'.toUpperCase(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .caption!
+                              .copyWith(fontWeight: FontWeight.bold)),
                     ],
                   ),
                 ),
