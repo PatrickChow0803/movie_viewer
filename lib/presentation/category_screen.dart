@@ -158,44 +158,58 @@ class _BuildWidgetCategoryState extends State<BuildWidgetCategory> {
                                     MovieDetailScreen(movie: movie)));
                           },
                           child: ClipRRect(
-                            child: CachedNetworkImage(
-                              imageUrl:
-                                  'https://image.tmdb.org/t/p/original/${movie.backdropPath}',
-                              fit: BoxFit.cover,
-                              imageBuilder: (context, imageProvider) {
-                                return Container(
-                                  width: 180,
-                                  height: 250,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(12),
+                            child: movie.backdropPath != null
+                                ? CachedNetworkImage(
+                                    imageUrl:
+                                        'https://image.tmdb.org/t/p/original/${movie.backdropPath}',
+                                    fit: BoxFit.cover,
+                                    imageBuilder: (context, imageProvider) {
+                                      return Container(
+                                        width: 180,
+                                        height: 250,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(12),
+                                          ),
+                                          image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.cover),
+                                        ),
+                                      );
+                                    },
+                                    placeholder: (context, url) => Container(
+                                      width: 180,
+                                      height: 250,
+                                      child: Center(
+                                        child: Platform.isAndroid
+                                            ? CircularProgressIndicator()
+                                            : CupertinoActivityIndicator(),
+                                      ),
                                     ),
-                                    image: DecorationImage(
-                                        image: imageProvider,
-                                        fit: BoxFit.cover),
+                                    errorWidget: (context, url, error) =>
+                                        Container(
+                                      width: 180,
+                                      height: 250,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: AssetImage(
+                                              'assets/images/img_not_found.jpg'),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : Container(
+                                    width: 180,
+                                    height: 250,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image: AssetImage(
+                                          'assets/images/img_not_found.jpg',
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                );
-                              },
-                              placeholder: (context, url) => Container(
-                                width: 180,
-                                height: 250,
-                                child: Center(
-                                  child: Platform.isAndroid
-                                      ? CircularProgressIndicator()
-                                      : CupertinoActivityIndicator(),
-                                ),
-                              ),
-                              errorWidget: (context, url, error) => Container(
-                                width: 180,
-                                height: 250,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                        'assets/images/img_not_found.jpg'),
-                                  ),
-                                ),
-                              ),
-                            ),
                           ),
                         ),
                         SizedBox(height: 10),

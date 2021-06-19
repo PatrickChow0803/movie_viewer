@@ -10,10 +10,10 @@ import 'package:movie_viewer/models/person.dart';
 class ApiService {
   final Dio _dio = Dio();
 
-  // https://api.themoviedb.org/3/movie/now_playing?api_key={api_key_here}&language=en-US&page=1
   static const String baseUrl = 'https://api.themoviedb.org/3';
   static final String apiKey = dotenv.env['API_KEY']!;
 
+  // https://api.themoviedb.org/3/movie/now_playing?api_key={api_key}
   Future<List<Movie>> getNowPlayingMovie() async {
     try {
       final url = '$baseUrl/movie/now_playing?api_key=$apiKey';
@@ -31,6 +31,7 @@ class ApiService {
 
   // Action Genre Id is 28
   // Assume Action is the default category
+  // https://api.themoviedb.org/3/discover/movie?with_genres=28&api_key={api_key}}
   Future<List<Movie>> getMovieByGenre({int genreId = 28}) async {
     try {
       final url =

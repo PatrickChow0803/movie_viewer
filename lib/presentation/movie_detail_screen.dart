@@ -288,7 +288,7 @@ class MovieDetailScreen extends StatelessWidget {
                           height: 110,
                           child: ListView.separated(
                             scrollDirection: Axis.horizontal,
-                            itemCount: 10,
+                            itemCount: 7,
                             separatorBuilder: (context, index) =>
                                 VerticalDivider(
                               color: Colors.transparent,
