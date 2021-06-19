@@ -160,78 +160,19 @@ class MovieDetailScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Release date'.toUpperCase(),
-                                  style: Theme.of(context)
-                                      .primaryTextTheme
-                                      .caption!
-                                      .copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
-                                ),
-                                Text(
-                                  movieDetail.releaseDate!,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle2!
-                                      .copyWith(
-                                          color: Colors.yellow[800],
-                                          fontSize: 12),
-                                ),
-                              ],
+                            _column_movie_details(
+                              information: 'Release Date',
+                              answerToInformation: movieDetail.releaseDate!,
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Run Time'.toUpperCase(),
-                                  style: Theme.of(context)
-                                      .primaryTextTheme
-                                      .caption!
-                                      .copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
-                                ),
-                                Text(
-                                  '${movieDetail.runtime!} Mins',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle2!
-                                      .copyWith(
-                                          color: Colors.yellow[800],
-                                          fontSize: 12),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Rating'.toUpperCase(),
-                                  style: Theme.of(context)
-                                      .primaryTextTheme
-                                      .caption!
-                                      .copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
-                                ),
-                                Text(
-                                  movieDetail.voteAverage.toString(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle2!
-                                      .copyWith(
-                                          color: Colors.yellow[800],
-                                          fontSize: 12),
-                                ),
-                              ],
-                            ),
+                            _column_movie_details(
+                                information: 'Run Time',
+                                answerToInformation: movieDetail.runtime!),
+                            _column_movie_details(
+                                information: 'Rating',
+                                answerToInformation: movieDetail.voteAverage!),
                             SizedBox(
                               height: 10.0,
-                            )
+                            ),
                           ],
                         ),
                         SizedBox(height: 10),
@@ -380,5 +321,40 @@ class MovieDetailScreen extends StatelessWidget {
         return Container();
       }
     });
+  }
+}
+
+class _column_movie_details extends StatelessWidget {
+  final String answerToInformation;
+
+  final String information;
+
+  const _column_movie_details({
+    Key? key,
+    required this.information,
+    required this.answerToInformation,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          information.toUpperCase(),
+          style: Theme.of(context)
+              .primaryTextTheme
+              .caption!
+              .copyWith(fontWeight: FontWeight.bold, color: Colors.black),
+        ),
+        Text(
+          answerToInformation,
+          style: Theme.of(context)
+              .textTheme
+              .subtitle2!
+              .copyWith(color: Colors.yellow[800], fontSize: 12),
+        ),
+      ],
+    );
   }
 }

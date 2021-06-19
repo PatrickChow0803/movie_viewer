@@ -147,6 +147,7 @@ class ApiService {
                 knownFor: c['known_for_department']);
           })
           .where((castMember) => castMember.knownFor == 'Acting')
+          .where((castMember) => castMember.profilePath != null)
           .toList();
       return castList;
     } catch (error, stacktrace) {
