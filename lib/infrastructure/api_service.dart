@@ -132,12 +132,13 @@ class ApiService {
       final response = await _dio.get(url);
       // cast here to go into the json map
       var list = response.data['cast'] as List;
-      List<Cast> castList = list
-          .map((c) => Cast(
-              name: c['name'],
-              profilePath: c['profile_path'],
-              character: c['character']))
-          .toList();
+      List<Cast> castList = list.map((c) {
+        print(c.toString());
+        return Cast(
+            name: c['name'],
+            profilePath: c['profile_path'],
+            character: c['character']);
+      }).toList();
       return castList;
     } catch (error, stacktrace) {
       throw Exception(
