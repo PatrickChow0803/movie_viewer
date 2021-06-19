@@ -14,7 +14,7 @@ class Person {
       this.knowForDepartment,
       this.popularity});
 
-  factory Person.fromJson(Map<String, dynamic> json) {
+  factory Person.fromJson(Map<String, dynamic>? json) {
     if (json == null) {
       return Person();
     }

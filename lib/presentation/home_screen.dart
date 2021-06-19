@@ -77,7 +77,7 @@ class HomeScreen extends StatelessWidget {
                       );
                     } else if (state is MovieLoaded) {
                       List<Movie> movies = state.movieList;
-                      print(movies.length);
+                      // print(movies.length);
                       return Column(
                         children: [
                           CarouselSlider.builder(

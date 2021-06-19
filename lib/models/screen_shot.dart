@@ -30,7 +30,6 @@ class Screenshot extends Equatable {
   }
 
   @override
-  // TODO: implement props
   List<Object?> get props =>
       [aspect, imagePath, height, width, countryCode, voteAverage, voteCount];
 }

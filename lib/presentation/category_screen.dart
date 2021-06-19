@@ -135,7 +135,7 @@ class _BuildWidgetCategoryState extends State<BuildWidgetCategory> {
               return Center();
             } else if (state is MovieLoaded) {
               List<Movie> movieList = state.movieList;
-              print('MoviesList Length: ${movieList.length}');
+              // print('MoviesList Length: ${movieList.length}');
               return Container(
                 height: 300,
                 width: double.infinity,

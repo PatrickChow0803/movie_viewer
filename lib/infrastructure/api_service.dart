@@ -40,7 +40,11 @@ class ApiService {
       // 'results' is used to get into the 'results' part of the json
       var movies = response.data['results'] as List;
       // converts the List<dynamic> into a List<Movie>
-      List<Movie> movieList = movies.map((m) => Movie.fromJson(m)).toList();
+      List<Movie> movieList = movies
+          .map((m) => Movie.fromJson(m))
+          // remove the movies that don't have images
+          .where((movie) => movie.backdropPath != null)
+          .toList();
       return movieList;
     } catch (error, stacktrace) {
       throw Exception(
