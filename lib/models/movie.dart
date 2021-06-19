@@ -1,10 +1,10 @@
 class Movie {
-  final String? backdropPath;
   final int? id;
+  final String? backdropPath;
   final String? originalLanguage;
   final String? originalTitle;
   final String? overview;
-  final double? popularity;
+  final num? popularity;
   final String? posterPath;
   final String? releaseDate;
   final String? title;
@@ -15,8 +15,8 @@ class Movie {
   late String error;
 
   Movie(
-      {this.backdropPath,
-      this.id,
+      {this.id,
+      this.backdropPath,
       this.originalLanguage,
       this.originalTitle,
       this.overview,
@@ -34,8 +34,8 @@ class Movie {
     }
 
     return Movie(
-        backdropPath: json['backdrop_path'],
         id: json['id'],
+        backdropPath: json['backdrop_path'],
         originalLanguage: json['original_language'],
         originalTitle: json['original_title'],
         overview: json['overview'],

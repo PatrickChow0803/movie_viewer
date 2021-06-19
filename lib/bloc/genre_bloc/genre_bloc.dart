@@ -22,7 +22,7 @@ class GenreBloc extends Bloc<GenreEvent, GenreState> {
 
       yield GenreLoaded(genreList);
     } on Exception catch (e) {
-      print(e);
+      // print(e);
       yield GenreError();
     }
   }

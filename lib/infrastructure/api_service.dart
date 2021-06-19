@@ -10,10 +10,10 @@ import 'package:movie_viewer/models/person.dart';
 class ApiService {
   final Dio _dio = Dio();
 
-  // https://api.themoviedb.org/3/movie/now_playing?api_key={api_key_here}&language=en-US&page=1
   static const String baseUrl = 'https://api.themoviedb.org/3';
   static final String apiKey = dotenv.env['API_KEY']!;
 
+  // https://api.themoviedb.org/3/movie/now_playing?api_key={api_key}
   Future<List<Movie>> getNowPlayingMovie() async {
     try {
       final url = '$baseUrl/movie/now_playing?api_key=$apiKey';
@@ -31,6 +31,7 @@ class ApiService {
 
   // Action Genre Id is 28
   // Assume Action is the default category
+  // https://api.themoviedb.org/3/discover/movie?with_genres=28&api_key={api_key}}
   Future<List<Movie>> getMovieByGenre({int genreId = 28}) async {
     try {
       final url =
@@ -39,7 +40,11 @@ class ApiService {
       // 'results' is used to get into the 'results' part of the json
       var movies = response.data['results'] as List;
       // converts the List<dynamic> into a List<Movie>
-      List<Movie> movieList = movies.map((m) => Movie.fromJson(m)).toList();
+      List<Movie> movieList = movies
+          .map((m) => Movie.fromJson(m))
+          // remove the movies that don't have images
+          .where((movie) => movie.backdropPath != null)
+          .toList();
       return movieList;
     } catch (error, stacktrace) {
       throw Exception(
@@ -132,13 +137,18 @@ class ApiService {
       final response = await _dio.get(url);
       // cast here to go into the json map
       var list = response.data['cast'] as List;
-      List<Cast> castList = list.map((c) {
-        print(c.toString());
-        return Cast(
-            name: c['name'],
-            profilePath: c['profile_path'],
-            character: c['character']);
-      }).toList();
+      List<Cast> castList = list
+          .map((c) {
+            // print(c.toString());
+            return Cast(
+                name: c['name'],
+                profilePath: c['profile_path'],
+                character: c['character'],
+                knownFor: c['known_for_department']);
+          })
+          .where((castMember) => castMember.knownFor == 'Acting')
+          .where((castMember) => castMember.profilePath != null)
+          .toList();
       return castList;
     } catch (error, stacktrace) {
       throw Exception(
