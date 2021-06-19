@@ -133,7 +133,7 @@ class ApiService {
       // cast here to go into the json map
       var list = response.data['cast'] as List;
       List<Cast> castList = list.map((c) {
-        print(c.toString());
+        // print(c.toString());
         return Cast(
             name: c['name'],
             profilePath: c['profile_path'],

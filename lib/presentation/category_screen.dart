@@ -12,6 +12,7 @@ import 'package:movie_viewer/bloc/movie_bloc/movie_bloc_event.dart';
 import 'package:movie_viewer/bloc/movie_bloc/movie_bloc_state.dart';
 import 'package:movie_viewer/models/genre.dart';
 import 'package:movie_viewer/models/movie.dart';
+import 'package:movie_viewer/presentation/movie_detail_screen.dart';
 
 class BuildWidgetCategory extends StatefulWidget {
   final int selectedGenre;
@@ -150,40 +151,48 @@ class _BuildWidgetCategoryState extends State<BuildWidgetCategory> {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ClipRRect(
-                          child: CachedNetworkImage(
-                            imageUrl:
-                                'https://image.tmdb.org/t/p/original/${movie.backdropPath}',
-                            fit: BoxFit.cover,
-                            imageBuilder: (context, imageProvider) {
-                              return Container(
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    MovieDetailScreen(movie: movie)));
+                          },
+                          child: ClipRRect(
+                            child: CachedNetworkImage(
+                              imageUrl:
+                                  'https://image.tmdb.org/t/p/original/${movie.backdropPath}',
+                              fit: BoxFit.cover,
+                              imageBuilder: (context, imageProvider) {
+                                return Container(
+                                  width: 180,
+                                  height: 250,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(12),
+                                    ),
+                                    image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover),
+                                  ),
+                                );
+                              },
+                              placeholder: (context, url) => Container(
+                                width: 180,
+                                height: 250,
+                                child: Center(
+                                  child: Platform.isAndroid
+                                      ? CircularProgressIndicator()
+                                      : CupertinoActivityIndicator(),
+                                ),
+                              ),
+                              errorWidget: (context, url, error) => Container(
                                 width: 180,
                                 height: 250,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(12),
-                                  ),
                                   image: DecorationImage(
-                                      image: imageProvider, fit: BoxFit.cover),
-                                ),
-                              );
-                            },
-                            placeholder: (context, url) => Container(
-                              width: 180,
-                              height: 250,
-                              child: Center(
-                                child: Platform.isAndroid
-                                    ? CircularProgressIndicator()
-                                    : CupertinoActivityIndicator(),
-                              ),
-                            ),
-                            errorWidget: (context, url, error) => Container(
-                              width: 180,
-                              height: 250,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                      'assets/images/img_not_found.jpg'),
+                                    image: AssetImage(
+                                        'assets/images/img_not_found.jpg'),
+                                  ),
                                 ),
                               ),
                             ),
