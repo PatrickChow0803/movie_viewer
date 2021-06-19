@@ -137,6 +137,7 @@ class _BuildWidgetCategoryState extends State<BuildWidgetCategory> {
               print('MoviesList Length: ${movieList.length}');
               return Container(
                 height: 300,
+                width: double.infinity,
                 child: ListView.separated(
                   separatorBuilder: (context, index) => VerticalDivider(
                     color: Colors.transparent,
