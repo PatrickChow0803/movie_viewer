@@ -24,6 +24,10 @@ class ApiService {
       List<Movie> movieList = movies
           .map((m) => Movie.fromJson(m))
           .where((movie) => movie.adult == false)
+          .where((movie) =>
+              !(movie.title!.toUpperCase().contains('PORN')) &&
+              !(movie.title!.toUpperCase().contains('SEX')) &&
+              !(movie.title!.toUpperCase().contains('SEXUAL')))
           .toList();
       return movieList;
     } catch (error, stacktrace) {
@@ -48,6 +52,10 @@ class ApiService {
           // remove the movies that don't have images
           .where((movie) => movie.backdropPath != null)
           .where((movie) => movie.adult == false)
+          .where((movie) =>
+              !(movie.title!.toUpperCase().contains('PORN')) &&
+              !(movie.title!.toUpperCase().contains('SEX')) &&
+              !(movie.title!.toUpperCase().contains('SEXUAL')))
           .toList();
       return movieList;
     } catch (error, stacktrace) {
