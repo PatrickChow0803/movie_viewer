@@ -14,6 +14,7 @@ class MovieDetail {
   final String? runtime;
   final String? voteAverage;
   final String? voteCount;
+  final bool? adult;
 
   // for getting the video
   late String trailerId;
@@ -34,20 +35,23 @@ class MovieDetail {
     this.runtime,
     this.voteAverage,
     this.voteCount,
+    this.adult,
   });
 
   factory MovieDetail.fromJson(Map<String, dynamic> json) {
     return MovieDetail(
-        id: json['id'].toString(),
-        title: json['title'],
-        backdropPath: json['backdrop_path'],
-        budget: json['budget'].toString(),
-        homePage: json['home_page'],
-        originalTitle: json['original_title'],
-        overview: json['overview'],
-        releaseDate: json['release_date'],
-        runtime: json['runtime'].toString(),
-        voteAverage: json['vote_average'].toString(),
-        voteCount: json['vote_count'].toString());
+      id: json['id'].toString(),
+      title: json['title'],
+      backdropPath: json['backdrop_path'],
+      budget: json['budget'].toString(),
+      homePage: json['home_page'],
+      originalTitle: json['original_title'],
+      overview: json['overview'],
+      releaseDate: json['release_date'],
+      runtime: json['runtime'].toString(),
+      voteAverage: json['vote_average'].toString(),
+      voteCount: json['vote_count'].toString(),
+      adult: json['adult'],
+    );
   }
 }
