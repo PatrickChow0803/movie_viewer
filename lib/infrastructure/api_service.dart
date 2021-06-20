@@ -28,7 +28,8 @@ class ApiService {
           .where((movie) =>
               !(movie.title!.toUpperCase().contains('PORN')) &&
               !(movie.title!.toUpperCase().contains('SEX')) &&
-              !(movie.title!.toUpperCase().contains('SEXUAL')))
+              !(movie.title!.toUpperCase().contains('SEXUAL')) &&
+              !(movie.title!.toUpperCase().contains('XXX')))
           .toList();
       return movieList;
     } catch (error, stacktrace) {
@@ -57,7 +58,8 @@ class ApiService {
           .where((movie) =>
               !(movie.title!.toUpperCase().contains('PORN')) &&
               !(movie.title!.toUpperCase().contains('SEX')) &&
-              !(movie.title!.toUpperCase().contains('SEXUAL')))
+              !(movie.title!.toUpperCase().contains('SEXUAL')) &&
+              !(movie.title!.toUpperCase().contains('XXX')))
           .toList();
       return movieList;
     } catch (error, stacktrace) {
