@@ -11,6 +11,7 @@ class Movie {
   final bool? video;
   final int? voteCount;
   final String? voteAverage;
+  final bool? adult;
 
   late String error;
 
@@ -26,7 +27,8 @@ class Movie {
       this.title,
       this.video,
       this.voteCount,
-      this.voteAverage});
+      this.voteAverage,
+      this.adult});
 
   factory Movie.fromJson(Map<String, dynamic>? json) {
     if (json == null) {
@@ -45,6 +47,7 @@ class Movie {
         title: json['title'],
         video: json['video'],
         voteCount: json['vote_count'],
-        voteAverage: json['vote_average'].toString());
+        voteAverage: json['vote_average'].toString(),
+        adult: json['adult']);
   }
 }
