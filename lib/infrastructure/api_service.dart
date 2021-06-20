@@ -24,6 +24,7 @@ class ApiService {
       List<Movie> movieList = movies
           .map((m) => Movie.fromJson(m))
           .where((movie) => movie.adult == false)
+          // backup incase a movie isn't considered adult but still have sexual words in the title
           .where((movie) =>
               !(movie.title!.toUpperCase().contains('PORN')) &&
               !(movie.title!.toUpperCase().contains('SEX')) &&
@@ -52,6 +53,7 @@ class ApiService {
           // remove the movies that don't have images
           .where((movie) => movie.backdropPath != null)
           .where((movie) => movie.adult == false)
+          // backup incase a movie isn't considered adult but still have sexual words in the title
           .where((movie) =>
               !(movie.title!.toUpperCase().contains('PORN')) &&
               !(movie.title!.toUpperCase().contains('SEX')) &&
