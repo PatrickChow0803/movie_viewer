@@ -42,38 +42,37 @@ class MovieDetailScreen extends StatelessWidget {
       } else if (state is MovieDetailLoaded) {
         MovieDetail movieDetail = state.detail;
         return SingleChildScrollView(
-          child: Stack(
+          child: Column(
             children: [
-              ClipRRect(
-                child: CachedNetworkImage(
-                  imageUrl:
-                      'https://image.tmdb.org/t/p/original/${movieDetail.backdropPath}',
-                  height: MediaQuery.of(context).size.height / 2,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) => Center(
-                    child: SizedBox(
-                      width: 100,
-                      height: 100,
-                      child: Platform.isAndroid
-                          ? CircularProgressIndicator()
-                          : CupertinoActivityIndicator(),
-                    ),
-                  ),
-                  errorWidget: (context, url, error) => Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image:
-                                AssetImage('assets/images/img_not_found.jpg'))),
-                  ),
-                ),
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(25),
-                    bottomRight: Radius.circular(25)),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Stack(
                 children: [
+                  ClipRRect(
+                    child: CachedNetworkImage(
+                      imageUrl:
+                          'https://image.tmdb.org/t/p/original/${movieDetail.backdropPath}',
+                      height: MediaQuery.of(context).size.height / 2,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) => Center(
+                        child: SizedBox(
+                          width: 100,
+                          height: 100,
+                          child: Platform.isAndroid
+                              ? CircularProgressIndicator()
+                              : CupertinoActivityIndicator(),
+                        ),
+                      ),
+                      errorWidget: (context, url, error) => Container(
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage(
+                                    'assets/images/img_not_found.jpg'))),
+                      ),
+                    ),
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(25),
+                        bottomRight: Radius.circular(25)),
+                  ),
                   Container(
                     padding: EdgeInsets.only(top: 120),
                     child: GestureDetector(
@@ -125,7 +124,12 @@ class MovieDetailScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 140),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 20),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 12),
                     child: Column(
@@ -313,7 +317,7 @@ class MovieDetailScreen extends StatelessWidget {
                     ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         );
