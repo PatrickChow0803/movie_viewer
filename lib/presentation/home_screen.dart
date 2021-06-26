@@ -11,6 +11,7 @@ import 'package:movie_viewer/bloc/movie_bloc/movie_bloc_state.dart';
 import 'package:movie_viewer/bloc/person_bloc/person_bloc.dart';
 import 'package:movie_viewer/bloc/person_bloc/person_event.dart';
 import 'package:movie_viewer/bloc/person_bloc/person_state.dart';
+import 'package:movie_viewer/core/const.dart';
 import 'package:movie_viewer/models/movie.dart';
 import 'package:movie_viewer/models/person.dart';
 import 'package:movie_viewer/presentation/category_screen.dart';
@@ -152,24 +153,7 @@ class HomeScreen extends StatelessWidget {
                                           fontWeight: FontWeight.bold,
                                           fontSize: 18,
                                           // adds black outline to the text
-                                          shadows: [
-                                            Shadow(
-                                                // bottomLeft
-                                                offset: Offset(-1.5, -1.5),
-                                                color: Colors.black),
-                                            Shadow(
-                                                // bottomRight
-                                                offset: Offset(1.5, -1.5),
-                                                color: Colors.black),
-                                            Shadow(
-                                                // topRight
-                                                offset: Offset(1.5, 1.5),
-                                                color: Colors.black),
-                                            Shadow(
-                                                // topLeft
-                                                offset: Offset(-1.5, 1.5),
-                                                color: Colors.black),
-                                          ],
+                                          shadows: textOutline,
                                         ),
                                         overflow: TextOverflow.ellipsis,
                                       ),
